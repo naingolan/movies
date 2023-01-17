@@ -5,6 +5,8 @@ class Movie(models.Model):
     synopsis = models.TextField()
     release_date = models.DateField()
     image_url = models.URLField()
+    rating = models.FloatField(default=0.0)
+
 
     def __str__(self):
         return self.title

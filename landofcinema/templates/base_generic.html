@@ -4,6 +4,7 @@
   <title>XYZ Cinemas</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% load static %}
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
@@ -15,15 +16,15 @@
           <img src="{% static 'images/logo.png' %}" alt="XYZ Cinemas logo">
         </div>
         <ul class="sidebar-nav">
-          <li><a href="{% url 'home' %}">Home</a></li>
-          <li><a href="{% url 'theater' %}">Theaters</a></li>
-          <li><a href="{% url 'movies' %}">Movies</a></li>
-          <li><a href="{% url 'login' %}">Login/Signup</a></li>
+          <li><a href="{% url 'index' %}">Home</a></li>
+          <li><a href="{% url 'index' %}">Theaters</a></li>
+          <li><a href="{% url 'index' %}">Movies</a></li>
+          <li><a href="{% url 'index' %}">Login/Signup</a></li>
         </ul>
       </div>
       <div class="col-sm-10">
         <div class="top-bar">
-          <form action="{% url 'search' %}" method="get">
+          <form action="{% url 'index' %}" method="get">
             <input type="text" name="q" placeholder="Search for a movie or theater">
             <button type="submit">Search</button>
           </form>
