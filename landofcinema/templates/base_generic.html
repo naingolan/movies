@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>XYZ Cinemas</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-2">
+        <div class="sidebar-logo">
+          <img src="{% static 'images/logo.png' %}" alt="XYZ Cinemas logo">
+        </div>
+        <ul class="sidebar-nav">
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'theater' %}">Theaters</a></li>
+          <li><a href="{% url 'movies' %}">Movies</a></li>
+          <li><a href="{% url 'login' %}">Login/Signup</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-10">
+        <div class="top-bar">
+          <form action="{% url 'search' %}" method="get">
+            <input type="text" name="q" placeholder="Search for a movie or theater">
+            <button type="submit">Search</button>
+          </form>
+          <div class="category-filters">
+            <input type="checkbox" name="category" value="action"> Action
+            <input type="checkbox" name="category" value="comedy"> Comedy
+            <input type="checkbox" name="category" value="drama"> Drama
+            <input type="checkbox" name="category" value="horror"> Horror
+            <input type="checkbox" name="category" value="romance"> Romance
+            <input type="checkbox" name="category" value="sci-fi"> Sci-Fi
+          </div>
+          <div class="theater-filters">
+            <input type="checkbox" name="theater" value="Dar es salaam"> Dar es salaam
+            <input type="checkbox" name="theater" value="Mwanza"> Mwanza
+            <input type="checkbox" name="theater" value="Arusha"> Arusha
+            <input type="checkbox" name="theater" value="Morogoro"> Morogoro
+            <input type="checkbox" name="theater" value="Dodoma"> Dodoma
+          </div>
+        </div>
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
