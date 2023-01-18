@@ -15,20 +15,28 @@
     </style>
 </head>
 <body style="background-color:#212121; height:100%">
-  <div class="container-fluid" style="position:absolute; width:100px; height:50px;background-color:#212121"></div>
+  <div class="toppest"></div>
   <div class="container-fluid">
     <div class="row" style="height:100%">
-        <div class="col-sm-2" style="background-color: #191919; height:100%">
-            <div class="sidebar-logo">
-                <img width="200px" height="150px" src="{% static 'images/logo.png' %}" alt="XYZ Cinemas logo">
-            </div>
-            <ul class="sidebar-nav">
-                <li><a style="color: #3DD2CC; text-decoration: none; line-height:30px;font-weight=600;font-size:20px; font-family: 'Poppins';" href="{% url 'index' %}">Home</a></li>
-                <li><a style="color: #3DD2CC; text-decoration: none; font-size:20px; font-weight:600; font-family: 'Poppins';" href="{% url 'index' %}">Theaters</a></li>
-                <li><a style="color: #3DD2CC; text-decoration: none; font-size:20px;font-family: 'Poppins';" href="{% url 'index' %}">Movies</a></li>
-                <li><a style="color: #3DD2CC; text-decoration: none; font-size:20px; font-family: 'Poppins';" href="{% url 'index' %}">Login/Signup</a></li>
-            </ul>
-        </div>
+       <div class="col-sm-2 d-none d-md-block" style="background-color: #191919; height:100%; padding:20px;">
+  <div class="sidebar-logo">
+    <img src="{% static 'images/logo.png' %}" alt="XYZ Cinemas logo" class="img-fluid">
+  </div>
+  <ul class="sidebar-nav">
+    <li>
+      <a href="{% url 'index' %}" class="text-light" style="text-decoration: none;">Home</a>
+    </li>
+    <li>
+      <a href="{% url 'index' %}" class="text-light" style="text-decoration: none;">Theaters</a>
+    </li>
+    <li>
+      <a href="{% url 'index' %}" class="text-light" style="text-decoration: none;">Movies</a>
+    </li>
+    <li>
+      <a href="{% url 'index' %}" class="text-light" style="text-decoration: none;">Login/Signup</a>
+    </li>
+  </ul>
+</div>
 
         <div class="col-sm-10" style="padding-top: 10px;position:relative">
         <div class="top-bar" style="position:relative">

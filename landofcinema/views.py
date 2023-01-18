@@ -9,7 +9,7 @@ def index(request):
     """View function for home page of site."""
 
     # Call function to fetch and save movies
-    movie_titles = ['matrix', 'avengers', 'jumanji']
+    movie_titles = ['matrix', 'avengers', 'jumanji', 'inception', ]
     for title in movie_titles:
         response = requests.get(f'http://www.omdbapi.com/?apikey=f8ccb335&t={title}')
         movie_data = response.json()
