@@ -1,10 +1,17 @@
 from django.shortcuts import render
 from .models import Movie
-from datetime import datetime
-from pytz import timezone
+from datetime import datetime, timezone
+import requests
+
+from .fetch_movies import fetch_and_save_movies
 
 def index(request):
     """View function for home page of site."""
+
+    #Call function to fetch and save movies
+    fetch_and_save_movies(['matrix', 'avengers', 'jumanji'])
+    # Rest of your code
+
 
     # Retrieve the top 5 upcoming movies
     tz = timezone('Africa/Dar_es_Salaam')
@@ -20,3 +27,4 @@ def index(request):
     }
 
     return render(request, 'index.html', context)
+

@@ -22,12 +22,14 @@
                 <h2>Now Showing</h2>
                 <div class="slider">
                     {% for movie in movies %}
-                        <div>
+                        <div class="slide">
                             <img src="{{ movie.image_url }}" alt="{{ movie.title }}">
-                            <p>{{ movie.title }}</p>
+                            <h3>{{ movie.title }}</h3>
+                            <p>{{ movie.synopsis }}</p>
                         </div>
                     {% endfor %}
                 </div>
+                
             </div>
         </div>
     </div>
