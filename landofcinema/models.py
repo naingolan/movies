@@ -1,4 +1,5 @@
 from django.db import models
+from dateutil.parser import parse
 
 class Movie(models.Model):
     title = models.CharField(max_length=255)
@@ -6,6 +7,11 @@ class Movie(models.Model):
     release_date = models.DateField(null=True, blank=True)
     image_url = models.URLField()
     rating = models.FloatField(default=0.0)
+
+    def save(self, *args, **kwargs):
+        if self.release_date:
+            self.release_date = parse(self.release_date).date()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
