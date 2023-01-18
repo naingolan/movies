@@ -2,18 +2,18 @@ from django.shortcuts import render
 from .models import Movie
 from datetime import datetime, timezone
 import requests
-
 from .fetch_movies import fetch_and_save_movies
+
 
 def index(request):
     """View function for home page of site."""
 
-    #Call function to fetch and save movies
-    fetch_and_save_movies(['matrix', 'avengers', 'jumanji'])
-    # Rest of your code
-
+    # Call function to fetch and save movies
+    movie_titles = ['matrix', 'avengers', 'jumanji']
+    fetch_and_save_movies(movie_titles)
 
     # Retrieve the top 5 upcoming movies
+    
     tz = timezone('Africa/Dar_es_Salaam')
     current_time = datetime.now(tz)
     upcoming_movies = Movie.objects.filter(release_date__gte=current_time).order_by('release_date')[:5]
@@ -27,4 +27,3 @@ def index(request):
     }
 
     return render(request, 'index.html', context)
-
