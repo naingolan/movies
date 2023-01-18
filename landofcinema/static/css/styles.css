@@ -1,19 +1,28 @@
+*{
+    font-family: 'Poppins', sans-serif;
+    }
+    
+
 .sidebar-nav {
     margin-top: 20px;
     padding: 0;
     list-style: none;
   }
-  .sidebar-nav>li>*{
-    color:#3DD2CC
+  .sidebar-nav>li>{
+    display:block;
+  }
+  .sidebar-nav>li:hover{
+    border-right-color: #3DD2CC;
+    border-right-width: 20%;
+    font-size: 30px;
   }
 input[type="submit"]{
-    background-color:red;
     color:#3DD2CC;
   }
 
   .carousel {
-    width: 400px;
-    height: 600px;
+    width: fit-content;
+    height: fit-content;
     background-color: #3DD2CC;
     }
 
