@@ -3,6 +3,21 @@
     padding: 0;
     list-style: none;
   }
+  .sidebar-nav>li>*{
+    color:#3DD2CC
+  }
+input[type="submit"]{
+    background-color:red;
+    color:#3DD2CC;
+  }
+
+  .carousel {
+    width: 400px;
+    height: 600px;
+    background-color: #3DD2CC;
+    }
+
+    
 
   .slider-container {
     position: relative;

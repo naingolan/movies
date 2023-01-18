@@ -22,7 +22,7 @@
                     <div class="carousel-inner">
                       {% for movie in movies %}
                           <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                              <img height="315px" width="200px" class="d-block w-100" src="{{ movie.image_url }}" alt="{{ movie.title }}" style="width:100%; height:auto;">
+                              <img  class="d-block w-100" src="{{ movie.image_url }}" alt="{{ movie.title }}" style="width:100%; height:auto;">
                               <div class="carousel-caption d-none d-md-block">
                                   <h3>{{ movie.title }}</h3>
                                   <p>{{ movie.synopsis }}</p>
