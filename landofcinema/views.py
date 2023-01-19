@@ -44,16 +44,29 @@ def index(request):
 from django.shortcuts import render, redirect
 from .forms import BookingForm
 
-def book_seat(request):
+def book_seats(request):
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('success')
+            # Extract the data from the form
+            movie = form.cleaned_data['movie']
+            theater = form.cleaned_data['theater']
+            date = form.cleaned_data['date']
+            time = form.cleaned_data['time']
+            seats = form.cleaned_data['seats']
+            
+            # Do something with the data, for example, create a reservation
+            reservation = Reservation.objects.create(
+                movie=movie,
+                theater=theater,
+                date=date,
+                time=time,
+                seats=seats
+            )
+            
+            # Redirect to a success page
+            return redirect('booking_success')
     else:
         form = BookingForm()
-    return render(request, 'book_seat.html', {'form': form})
-
-def success(request):
-    return render(request, 'success.html')
-
+        
+    return render(request, 'book_seats.html', {'form': form})
