@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Movie
+from .models import Booking, Movie
 from datetime import datetime, timezone
 import requests
 from .fetch_movies import fetch_and_save_movies
@@ -7,7 +7,6 @@ import pytz
 
 def index(request):
     """View function for home page of site."""
-
     # Call function to fetch and save movies
     movie_titles = ['matrix', 'avengers', 'jumanji', 'inception', ]
     for title in movie_titles:
@@ -44,40 +43,13 @@ def index(request):
 from django.shortcuts import render, redirect
 from .forms import BookingForm
 
-def book_seat(request):
+def book_seats(request):
+    booking = Booking.objects.get(pk=1)
     if request.method == 'POST':
-        form = BookingForm(request.POST)
+        form = BookingForm(request.POST, instance=booking)
         if form.is_valid():
             form.save()
-            return redirect('success')
+            return redirect('book_seats')
     else:
-        form = BookingForm()
-    return render(request, 'book_seat.html', {'form': form})
-
-def success(request):
-    return render(request, 'success.html')
-
-
-
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
-
-from .forms import NameForm
-
-def get_name(request):
-    # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = NameForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect('/thanks/')
-
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = NameForm()
-
-    return render(request, 'name.html', {'form': form})
+        form = BookingForm(instance=booking)
+    return render(request, 'book_seats.html', {'form': form})
