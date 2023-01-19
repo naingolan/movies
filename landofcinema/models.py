@@ -17,7 +17,7 @@ class Movie(models.Model):
         return self.title
 
 
-class Theatre(models.Model):
+class Theater(models.Model):
     name = models.CharField(max_length=255)
     region = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
@@ -26,12 +26,12 @@ class Theatre(models.Model):
         return self.name
 
 class Screen(models.Model):
-    theatre = models.ForeignKey(Theatre, on_delete=models.CASCADE)
+    theater = models.ForeignKey(Theater, on_delete=models.CASCADE)
     screen_number = models.IntegerField()
     capacity = models.IntegerField()
 
     def __str__(self):
-        return f"{self.theatre} - Screen {self.screen_number}"
+        return f"{self.theater} - Screen {self.screen_number}"
 
 class Schedule(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
@@ -53,13 +53,13 @@ class Users(models.Model):
 class Booking(models.Model):
     user = models.ForeignKey(Users, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
-    theatre = models.ForeignKey(Theatre, on_delete=models.CASCADE)
+    theater = models.ForeignKey(Theater, on_delete=models.CASCADE)
     screen = models.ForeignKey(Screen, on_delete=models.CASCADE)
     seat_number = models.CharField(max_length=255)
     booking_date = models.DateTimeField()
 
     def __str__(self):
-        return f"{self.user} - {self.movie} - {self.theatre} - {self.screen} - {self.seat_number} - {self.booking_date}"
+        return f"{self.user} - {self.movie} - {self.theater} - {self.screen} - {self.seat_number} - {self.booking_date}"
 
 class Payment(models.Model):
     booking = models.ForeignKey(Booking, on_delete=models.CASCADE)

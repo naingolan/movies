@@ -1,32 +1,10 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Book a seat for {{ movie.title }}</h1>
-  <p>Showtime: {{ showtime }}</p>
-  <form action="" method="post">
+  <h1>Book Seats</h1>
+  <form method="post" style="color=red; z-index=5">
     {% csrf_token %}
-    <table>
-    <tr>
-        <td>Select number of seats:</td>
-        <td>
-            <select name="seats">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-        </td>
-    </tr>
-    <tr>
-        <td>Enter your name:</td>
-        <td><input type="text" name="name"></td>
-    </tr>
-    <tr>
-        <td>Enter your email:</td>
-        <td><input type="email" name="email"></td>
-    </tr>
-    </table>
+    {{ form.as_p }}
     <input type="submit" value="Submit">
-  </form>
+  </form>  
 {% endblock %}
