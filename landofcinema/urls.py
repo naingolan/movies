@@ -7,6 +7,6 @@ urlpatterns = [
     path('', views.index, name="index"),
 ]
 
-urlpatterns = [
+urlpatterns += [
     path('book_seats/', views.book_seats, name='booking_form'),
 ]

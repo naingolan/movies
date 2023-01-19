@@ -7,7 +7,6 @@ import pytz
 
 def index(request):
     """View function for home page of site."""
-
     # Call function to fetch and save movies
     movie_titles = ['matrix', 'avengers', 'jumanji', 'inception', ]
     for title in movie_titles:
@@ -44,13 +43,13 @@ def index(request):
 from django.shortcuts import render, redirect
 from .forms import BookingForm
 
-def book_seats(request, booking_id):
-    booking = Booking.objects.get(pk=booking_id)
+def book_seats(request):
+    booking = Booking.objects.get(pk=1)
     if request.method == 'POST':
         form = BookingForm(request.POST, instance=booking)
         if form.is_valid():
             form.save()
-            return redirect('booking_success')
+            return redirect('book_seats')
     else:
         form = BookingForm(instance=booking)
     return render(request, 'book_seats.html', {'form': form})
