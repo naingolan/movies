@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Movie
+from .models import Booking, Movie
 from datetime import datetime, timezone
 import requests
 from .fetch_movies import fetch_and_save_movies
@@ -44,29 +44,13 @@ def index(request):
 from django.shortcuts import render, redirect
 from .forms import BookingForm
 
-def book_seats(request):
+def book_seats(request, booking_id):
+    booking = Booking.objects.get(pk=booking_id)
     if request.method == 'POST':
-        form = BookingForm(request.POST)
+        form = BookingForm(request.POST, instance=booking)
         if form.is_valid():
-            # Extract the data from the form
-            movie = form.cleaned_data['movie']
-            theater = form.cleaned_data['theater']
-            date = form.cleaned_data['date']
-            time = form.cleaned_data['time']
-            seats = form.cleaned_data['seats']
-            
-            # Do something with the data, for example, create a reservation
-            reservation = Reservation.objects.create(
-                movie=movie,
-                theater=theater,
-                date=date,
-                time=time,
-                seats=seats
-            )
-            
-            # Redirect to a success page
+            form.save()
             return redirect('booking_success')
     else:
-        form = BookingForm()
-        
+        form = BookingForm(instance=booking)
     return render(request, 'book_seats.html', {'form': form})
