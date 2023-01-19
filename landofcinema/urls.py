@@ -7,8 +7,6 @@ urlpatterns = [
     path('', views.index, name="index"),
 ]
 
-from .views import book_seats
-
 urlpatterns = [
-    path('book/<int:movie_id>/', BookingForm, name='booking_form'),
+    path('book_seats/', views.book_seats, name='booking_form'),
 ]
