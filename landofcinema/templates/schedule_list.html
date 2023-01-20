@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<table>
+    <thead>
+        <tr>
+            <th>Movie</th>
+            <th>Theater</th>
+            <th>Screen</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for schedule in schedules %}
+        <tr>
+            <td>{{ schedule.movie.title }}</td>
+            <td>{{ schedule.screen.theater.name }}</td>
+            <td>{{ schedule.screen.screen_number }}</td>
+            <td>{{ schedule.start_time }}</td>
+            <td>{{ schedule.end_time }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

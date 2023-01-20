@@ -67,3 +67,22 @@ def schedule_create(request):
     else:
         form = ScheduleForm()
     return render(request, 'add_schedule.html', {'form': form})
+
+
+#Viewing shedule
+from django.views.generic import ListView
+from .models import Schedule, Theater, Movie
+
+class ScheduleListView(ListView):
+    model = Schedule
+    template_name = 'schedule_list.html'
+    context_object_name = 'schedules'
+
+    def get_queryset(self):
+        return Schedule.objects.prefetch_related('screen__theater', 'movie')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['theaters'] = Theater.objects.all()
+        context['movies'] = Movie.objects.all()
+        return context
