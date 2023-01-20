@@ -3,7 +3,7 @@
 {% block content %}
   
   <form method="post" style="color=red; z-index=5" class="booking-form">
-    <h3>Book Seats</h3>
+    <h3 class="booking-header">Book Seats</h3>
       {% csrf_token %}
       {% for field in form %}
           <div class="booking-div">
@@ -11,6 +11,6 @@
               {{ field }}
           </div>
       {% endfor %}
-    <input class="booking-input" type="submit" value="Submit">
+    <input class="booking-submit" type="submit" value="Submit">
   </form> 
 {% endblock %}
