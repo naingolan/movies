@@ -339,3 +339,10 @@ a{
     text-align:center;
 }
   
+
+
+.form{
+    display:flex;
+    width:10px;
+    height:122px;
+}

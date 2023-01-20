@@ -90,15 +90,18 @@ class ScheduleListView(ListView):
 from django.shortcuts import render
 from .forms import PaymentForm
 from .models import Payment
+from django.shortcuts import render, get_object_or_404
 
-def confirm_payment(request):
-    form = PaymentForm()
+def confirm_payment(request, booking_id):
+    booking = get_object_or_404(Booking, id=booking_id)
     if request.method == 'POST':
         form = PaymentForm(request.POST)
         if form.is_valid():
-            booking = form.cleaned_data['booking']
             amount = form.cleaned_data['amount']
             payment_date = form.cleaned_data['payment_date']
             status = form.cleaned_data['status']
             Payment.objects.create(booking=booking, amount=amount, payment_date=payment_date, status=status)
-    return render(request, 'confirm_payment.html', {'form': form})
+    else:
+        form = PaymentForm()
+    return render(request, 'confirm_payment.html', {'form': form, 'booking': booking})
+
