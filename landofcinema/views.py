@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Booking, Movie
+from .models import Booking, Movie, Schedule
 from datetime import datetime, timezone
 import requests
 from .fetch_movies import fetch_and_save_movies
@@ -53,3 +53,17 @@ def book_seats(request):
     else:
         form = BookingForm(instance=booking)
     return render(request, 'book_seats.html', {'form': form})
+
+#creating a view for schedule
+from django.shortcuts import render, redirect
+from .forms import ScheduleForm
+
+def schedule_create(request):
+    if request.method == 'POST':
+        form = ScheduleForm(request.POST)
+        if form.is_valid():
+            schedule = form.save()
+            return redirect('add_schedule', pk=schedule.pk)
+    else:
+        form = ScheduleForm()
+    return render(request, 'add_schedule.html', {'form': form})

@@ -307,6 +307,7 @@ a{
     padding-right:50px;
     width:40%;
     display:block;
+    color: #E8E8E8 !important;
   }
   .booking-submit{
     position: relative;
