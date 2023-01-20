@@ -328,9 +328,14 @@ a{
 }
 .schedule-header{
     font-size:12px;
-    margin-bottom:10px;
+    margin-bottom:15px;
     margin:0;
     flex-direction: row;
     padding:0;
+    
+}
+.schedule-display>td{
+    color:#666666;
+    text-align:center;
 }
   
