@@ -13,3 +13,11 @@ class ScheduleForm(ModelForm):
     class Meta:
         model = Schedule
         fields = ['movie', 'screen', 'start_time', 'end_time']
+
+from django import forms
+
+class PaymentForm(forms.Form):
+    booking = forms.IntegerField()
+    amount = forms.FloatField()
+    payment_date = forms.DateTimeField()
+    status = forms.CharField(max_length=255)

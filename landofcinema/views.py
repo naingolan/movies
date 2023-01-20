@@ -86,3 +86,19 @@ class ScheduleListView(ListView):
         context['theaters'] = Theater.objects.all()
         context['movies'] = Movie.objects.all()
         return context
+
+from django.shortcuts import render
+from .forms import PaymentForm
+from .models import Payment
+
+def confirm_payment(request):
+    form = PaymentForm()
+    if request.method == 'POST':
+        form = PaymentForm(request.POST)
+        if form.is_valid():
+            booking = form.cleaned_data['booking']
+            amount = form.cleaned_data['amount']
+            payment_date = form.cleaned_data['payment_date']
+            status = form.cleaned_data['status']
+            Payment.objects.create(booking=booking, amount=amount, payment_date=payment_date, status=status)
+    return render(request, 'confirm_payment.html', {'form': form})
