@@ -105,3 +105,22 @@ def confirm_payment(request, booking_id):
         form = PaymentForm()
     return render(request, 'confirm_payment.html', {'form': form, 'booking': booking})
 
+
+
+
+    #This is  for movie, shcedules and theater search 
+from .models import Schedule, Movie, Theater
+
+def search_schedules(request):
+    query = request.GET.get('q')
+    schedules = None
+    movies = None
+    theaters = None
+    if query:
+        schedules = Schedule.objects.filter(movie__title__icontains=query)
+        movies = Movie.objects.filter(title__icontains=query)
+        theaters = Theater.objects.filter(name__icontains=query)
+    return render(request, 'search_schedules.html', {'schedules': schedules, 'movies': movies, 'theaters': theaters})
+
+
+
