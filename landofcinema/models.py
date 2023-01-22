@@ -1,5 +1,6 @@
 from django.db import models
 from dateutil.parser import parse
+from django.contrib.auth.models import User
 
 class Movie(models.Model):
     title = models.CharField(max_length=255)
@@ -42,16 +43,10 @@ class Schedule(models.Model):
     def __str__(self):
         return f"{self.movie} - {self.screen} - {self.start_time} - {self.end_time}"
 
-class Users(models.Model):
-    username = models.CharField(max_length=255)
-    password = models.CharField(max_length=255)
-    role = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.username
+from django.contrib.auth.models import User
 
 class Booking(models.Model):
-    user = models.ForeignKey(Users, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     theater = models.ForeignKey(Theater, on_delete=models.CASCADE)
     screen = models.ForeignKey(Screen, on_delete=models.CASCADE)
@@ -69,3 +64,4 @@ class Payment(models.Model):
 
     def __str__(self):
         return f"{self.booking} - {self.amount} - {self.payment_date} - {self.status}"
+

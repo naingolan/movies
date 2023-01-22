@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Movie, Theater, Screen, Schedule, Users, Booking, Payment
+from .models import Movie, Theater, Screen, Schedule, Booking, Payment
 
 class MovieAdmin(admin.ModelAdmin):
     list_display = ('title', 'release_date')
@@ -36,11 +36,11 @@ class PaymentAdmin(admin.ModelAdmin):
     search_fields = ('booking__user__username', 'booking__movie__title')
     list_filter = ('payment_date', 'status')
 
+
 admin.site.register(Movie, MovieAdmin)
 admin.site.register(Theater, TheaterAdmin)
 admin.site.register(Screen, ScreenAdmin)
 admin.site.register(Schedule, ScheduleAdmin)
-admin.site.register(Users, UsersAdmin)
 admin.site.register(Booking, BookingAdmin)
 admin.site.register(Payment, PaymentAdmin)
 

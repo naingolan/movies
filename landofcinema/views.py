@@ -8,7 +8,7 @@ import pytz
 def index(request):
     """View function for home page of site."""
     # Call function to fetch and save movies
-    movie_titles = ['matrix', 'avengers', 'jumanji', 'inception', ]
+    movie_titles = ['puss in boots', 'avatar', 'jumanji', 'inception', ]
     for title in movie_titles:
         response = requests.get(f'http://www.omdbapi.com/?apikey=f8ccb335&t={title}')
         movie_data = response.json()
@@ -87,6 +87,8 @@ class ScheduleListView(ListView):
         context['movies'] = Movie.objects.all()
         return context
 
+
+#confirm payment schedule
 from django.shortcuts import render
 from .forms import PaymentForm
 from .models import Payment
@@ -124,3 +126,107 @@ def search_schedules(request):
 
 
 
+#Payment preview 
+from django.shortcuts import render, redirect
+from .models import Payment, Booking
+from .forms import PaymentForm
+from . import models
+
+def payment(request, booking_id):
+    #booking = get_object_or_404(Booking, id=booking_id)
+    #booking = models.ForeignKey(Booking, on_delete=models.CASCADE)
+    booking = Booking.objects.get(id=booking_id)
+    if request.method == 'POST':
+        form = PaymentForm(request.POST)
+        if form.is_valid():
+            payment = form.save(commit=False)
+            payment.booking = booking
+            payment.save()
+            return redirect('payment_success')
+    else:
+        form = PaymentForm()
+    return render(request, 'payment.html', {'form': form, 'booking': booking})
+
+
+
+
+# creating a view which will authenticate a user and allow him to enter details 
+from django.contrib.auth.decorators import user_passes_test
+from .models import *
+
+def is_employee(user):
+    try:
+        employee = Employee.objects.get(user=user)
+        if employee.role == 'showing_times_loader':
+            return True
+        else:
+            return False
+    except Employee.DoesNotExist:
+        return False
+    
+    
+    
+    
+from django.shortcuts import render, redirect
+from .forms import ShowingTimeForm
+
+@user_passes_test(is_employee)
+
+def create_showing_time(request):
+    if request.method == 'POST':
+        form = ShowingTimeForm(request.POST)
+        if form.is_valid():
+            movie = form.cleaned_data.get('movie')
+            theater = form.cleaned_data.get('theater')
+            screen = form.cleaned_data.get('screen')
+            start_time = form.cleaned_data.get('start_time')
+            end_time = form.cleaned_data.get('end_time')
+            
+            schedule = Schedule.objects.create(
+                movie=movie,
+                theater=theater,
+                screen=screen,
+                start_time=start_time,
+                end_time=end_time
+            )
+            schedule.save()
+            
+            return redirect('showing_time_success')
+    else:
+        form = ShowingTimeForm()
+    return render(request, 'create_showing_time.html', {'form': form})
+
+
+
+#Adding new movie by the user 
+from django.shortcuts import render, redirect
+from .models import Movie
+from .forms import MovieForm
+
+def add_movie(request):
+    if request.method == 'POST':
+        form = MovieForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        form = MovieForm()
+    return render(request, 'add_movie.html', {'form': form})
+
+
+#this is for displaying the movies 
+from django.shortcuts import render
+from .models import Schedule, Theater, Movie, Screen
+
+def schedule_view(request):
+    schedules = Schedule.objects.all()
+    theaters = Theater.objects.all()
+    movies = Movie.objects.all()
+    screens = Screen.objects.all()
+    context = {
+        'schedules': schedules,
+        'theaters': theaters,
+        'movies': movies,
+        'screens': screens
+    }
+    return render(request, 'schedule.html', context)
