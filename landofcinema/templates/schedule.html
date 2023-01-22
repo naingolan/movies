@@ -1,0 +1,26 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<h1>Movie Schedules</h1>
+<div class="trending">
+    {% for movie in movies|slice:":4" %}
+    <a href="#" class="movie">
+      <img  src="{{ movie.image_url }}" alt="{{ movie.title }}">
+      <h3>{{ movie.title }}</h3>
+    </a>
+    {% endfor %} 
+  </div>
+<div class="trending">
+    {% for schedule in schedules %}
+    <a href="#" class="movie">
+        <img src="{{schedule.movie.image_url}}" alt="{{schedule.movie.title}}">
+        <h3>{{schedule.movie.title}}</h3>
+        <h3>{{schedule.screen.theater.name}}</h3>
+        <h3>{{schedule.screen.screen_number}}</h3>
+        <h3>{{schedule.start_time}}</h3>
+        <h3>{{schedule.end_time}}</h3>
+        <a href="{% url 'book_seat' schedule.id %}">Book</a>
+    </a>
+        {% endfor %}
+</div>
+{% endblock %}

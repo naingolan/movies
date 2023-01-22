@@ -42,17 +42,22 @@ def index(request):
 
 from django.shortcuts import render, redirect
 from .forms import BookingForm
+from django.contrib.auth.decorators import login_required
 
-def book_seats(request):
-    booking = Booking.objects.get(pk=1)
+@login_required
+def book_seats(request, schedule_id):
+    schedule = Schedule.objects.get(pk=schedule_id)
     if request.method == 'POST':
-        form = BookingForm(request.POST, instance=booking)
+        form = BookingForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('book_seats')
+            booking = form.save(commit=False)
+            booking.user = request.user
+            booking.schedule = schedule
+            booking.save()
+            return redirect('index')
     else:
-        form = BookingForm(instance=booking)
-    return render(request, 'book_seats.html', {'form': form})
+        form = BookingForm()
+    return render(request, 'book_seats.html', {'form': form, 'schedule': schedule})
 
 #creating a view for schedule
 from django.shortcuts import render, redirect
@@ -230,3 +235,23 @@ def schedule_view(request):
         'screens': screens
     }
     return render(request, 'schedule.html', context)
+
+
+#registering  new users 
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import login, authenticate
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('index')
+    else:
+        form = UserCreationForm()
+    return render(request, 'register.html', {'form': form})

@@ -4,7 +4,7 @@ from .models import Booking
 class BookingForm(ModelForm):
     class Meta:
         model = Booking
-        fields = ['user','movie','theater','screen','seat_number','booking_date']
+        fields = ['movie','theater','screen','seat_number','booking_date']
         #i have deciede to addthis i have lost my data fuck  
 
 from .models import Schedule
@@ -41,3 +41,24 @@ class MovieForm(forms.ModelForm):
     class Meta:
         model = Movie
         fields = ['title', 'synopsis', 'release_date', 'image_url', 'rating']
+        
+        
+        
+#for registering
+
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+
+class CustomUserCreationForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')
+
+def save(self, commit=True):
+    user = super(CustomUserCreationForm, self).save(commit=False)
+    user.email = self.cleaned_data["email"]
+    if commit:
+        user.save()
+    return user
