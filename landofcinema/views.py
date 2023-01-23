@@ -63,10 +63,10 @@ def book_seats(request, schedule_id):
 from django.shortcuts import render, redirect
 from .forms import ScheduleForm
 
-def schedule_create(request):
-    if not request.user.is_authenticated:
-        return redirect('index')
-    if not request.user.groups.filter(name='employees').exists():
+def add_schedule(request):
+    # if not request.user.is_authenticated:
+    #     return redirect('index')
+    if not request.user.groups.filter(name='Employee').exists():
         return redirect('index')
     if request.method == 'POST':
         form = ScheduleForm(request.POST)
@@ -77,6 +77,39 @@ def schedule_create(request):
         form = ScheduleForm()
     return render(request, 'add_schedule.html', {'form': form})
 
+#These aree views for listing, editiong and deleteing the schedules 
+from django.shortcuts import render, redirect
+from .models import Schedule
+
+def schedule_list(request):
+    if not request.user.groups.filter(name='Employee').exists():
+        return redirect('index')
+    schedules = Schedule.objects.all()
+    return render(request, 'schedule_list.html', {'schedules': schedules})
+
+def schedule_delete(request, schedule_id):
+    if not request.user.groups.filter(name='Employee').exists():
+        return redirect('index')
+    schedule = Schedule.objects.get(pk=schedule_id)
+    schedule.delete()
+    return redirect('schedule_list_admin')
+
+
+from .forms import ScheduleForm
+def schedule_edit(request, schedule_id):
+    schedule = Schedule.objects.get(pk=schedule_id)
+
+    if not request.user.groups.filter(name='Employee').exists():
+        return redirect('index')
+
+    if request.method == 'POST':
+        form = ScheduleForm(request.POST, instance=schedule)
+        if form.is_valid():
+            form.save()
+            return redirect('schedule_list_admin')
+    else:
+        form = ScheduleForm(instance=schedule)
+    return render(request, 'schedule_edit.html', {'form': form})
 
 
 #Viewing shedule
@@ -225,6 +258,27 @@ def add_movie(request):
         form = MovieForm()
     return render(request, 'add_movie.html', {'form': form})
 
+#Editing the movie details 
+def edit_movie(request, movie_id):
+    movie = Movie.objects.get(pk=movie_id)
+
+    if not request.user.groups.filter(name='Employee').exists():
+        return redirect('index')
+
+    if request.method == 'POST':
+        form = MovieForm(request.POST, request.FILES, instance=movie)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        form = MovieForm(instance=movie)
+    return render(request, 'edit_movie.html', {'form': form, 'movie': movie})
+
+def movies_list(request):
+    if not request.user.groups.filter(name='Employee').exists():
+        return redirect('index')
+    movies = Movie.objects.all()
+    return render(request, 'movies_list.html', {'movies': movies})
 
 #this is for displaying the movies 
 from django.shortcuts import render

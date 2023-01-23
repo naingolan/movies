@@ -1,26 +1,32 @@
-{% extends "base_generic.html" %}
+{% extends 'base_generic.html' %}
 
 {% block content %}
-<table class="schedule-table">
-    <thead>
-        <tr class="schedule-header">
-            <th>Movie</th>
-            <th>Theater</th>
-            <th>Screen</th>
-            <th>Start Time</th>
-            <th>End Time</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for schedule in schedules %}
-        <tr class="schedule-display">
-            <td>{{ schedule.movie.title }}</td>
-            <td>{{ schedule.screen.theater.name }}</td>
-            <td>{{ schedule.screen.screen_number }}</td>
-            <td>{{ schedule.start_time }}</td>
-            <td>{{ schedule.end_time }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <h1>Schedules</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Movie</th>
+                <th>Theater</th>
+                <th>Screen</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for schedule in schedules %}
+                <tr>
+                    <td>{{ schedule.movie.title }}</td>
+                    <td>{{ schedule.screen.theater.name }}</td>
+                    <td>{{ schedule.screen.screen_number }}</td>
+                    <td>{{ schedule.start_time }}</td>
+                    <td>{{ schedule.end_time }}</td>
+                    <td>
+                        <a href="{% url 'schedule_edit_admin' schedule.id %}">Edit</a>
+                        <a href="{% url 'delete_schedule' schedule.id %}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

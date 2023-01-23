@@ -62,3 +62,11 @@ def save(self, commit=True):
     if commit:
         user.save()
     return user
+
+
+
+#These are for editing the movies  
+class ScheduleForm(forms.ModelForm):
+    class Meta:
+        model = Schedule
+        fields = ('movie', 'screen', 'start_time', 'end_time')
