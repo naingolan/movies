@@ -10,17 +10,23 @@
     </a>
     {% endfor %} 
   </div>
-<div class="trending">
-    {% for schedule in schedules %}
-    <a href="#" class="movie">
-        <img src="{{schedule.movie.image_url}}" alt="{{schedule.movie.title}}">
-        <h3>{{schedule.movie.title}}</h3>
-        <h3>{{schedule.screen.theater.name}}</h3>
-        <h3>{{schedule.screen.screen_number}}</h3>
-        <h3>{{schedule.start_time}}</h3>
-        <h3>{{schedule.end_time}}</h3>
-        <a href="{% url 'book_seat' schedule.id %}">Book</a>
-    </a>
+
+{% for theater in theaters %}
+    <h2>{{ theater.name }}</h2>
+    <div class="trending">
+        {% for schedule in schedules %}
+        {% if schedule.screen.theater.name == theater.name %}
+            <a href="#" class="movie">
+                <img src="{{schedule.movie.image_url}}" alt="{{schedule.movie.title}}">
+                <h3>{{schedule.movie.title}}</h3>
+                <h3>{{schedule.screen.theater.name}}</h3>
+                <h3>{{schedule.screen.screen_number}}</h3>
+                <h3>{{schedule.start_time}}</h3>
+                <h3>{{schedule.end_time}}</h3>
+                <a href="{% url 'book_seat' schedule.id %}">Book</a>
+            </a>
+        {% endif %}
         {% endfor %}
-</div>
+    </div>
+{% endfor %}
 {% endblock %}

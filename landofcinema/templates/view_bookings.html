@@ -1,0 +1,23 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <h1>My Bookings</h1>
+    <table>
+        <tr>
+            <th>Movie</th>
+            <th>Theater</th>
+            <th>Screen</th>
+            <th>Seat Number</th>
+            <th>Booking Date</th>
+        </tr>
+        {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.movie.title }}</td>
+                <td>{{ booking.theater.name }}</td>
+                <td>{{ booking.screen.screen_number }}</td>
+                <td>{{ booking.seat_number }}</td>
+                <td>{{ booking.booking_date }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

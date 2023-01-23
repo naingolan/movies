@@ -64,6 +64,10 @@ from django.shortcuts import render, redirect
 from .forms import ScheduleForm
 
 def schedule_create(request):
+    if not request.user.is_authenticated:
+        return redirect('index')
+    if not request.user.groups.filter(name='employees').exists():
+        return redirect('index')
     if request.method == 'POST':
         form = ScheduleForm(request.POST)
         if form.is_valid():
@@ -72,6 +76,7 @@ def schedule_create(request):
     else:
         form = ScheduleForm()
     return render(request, 'add_schedule.html', {'form': form})
+
 
 
 #Viewing shedule
@@ -115,7 +120,7 @@ def confirm_payment(request, booking_id):
 
 
 
-    #This is  for movie, shcedules and theater search 
+#This is  for movie, shcedules and theater search 
 from .models import Schedule, Movie, Theater
 
 def search_schedules(request):
@@ -205,10 +210,12 @@ def create_showing_time(request):
 
 #Adding new movie by the user 
 from django.shortcuts import render, redirect
-from .models import Movie
 from .forms import MovieForm
+from django.contrib.auth.models import Group
 
 def add_movie(request):
+    if not request.user.groups.filter(name='Employee').exists():
+        return redirect('index')
     if request.method == 'POST':
         form = MovieForm(request.POST, request.FILES)
         if form.is_valid():
@@ -223,18 +230,23 @@ def add_movie(request):
 from django.shortcuts import render
 from .models import Schedule, Theater, Movie, Screen
 
+# def schedule_view(request):
+#     schedules = Schedule.objects.all()
+#     theaters = Theater.objects.all()
+#     movies = Movie.objects.all()
+#     screens = Screen.objects.all()
+#     context = {
+#         'schedules': schedules,
+#         'theaters': theaters,
+#         'movies': movies,
+#         'screens': screens
+#     }
+#     return render(request, 'schedule.html', context)
+
 def schedule_view(request):
     schedules = Schedule.objects.all()
     theaters = Theater.objects.all()
-    movies = Movie.objects.all()
-    screens = Screen.objects.all()
-    context = {
-        'schedules': schedules,
-        'theaters': theaters,
-        'movies': movies,
-        'screens': screens
-    }
-    return render(request, 'schedule.html', context)
+    return render(request, 'schedule.html', {'schedules': schedules, 'theaters': theaters})
 
 
 #registering  new users 
@@ -255,3 +267,16 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, 'register.html', {'form': form})
+
+
+#checking user bookings 
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from .models import Booking
+@login_required
+def view_bookings(request):
+    if request.user.is_authenticated:
+        bookings = Booking.objects.filter(user=request.user)
+        return render(request, 'view_bookings.html', {'bookings': bookings})
+    else:
+        return redirect('login')

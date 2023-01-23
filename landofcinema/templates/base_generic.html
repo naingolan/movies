@@ -27,7 +27,7 @@
                 </li>
                 <li>
                     <i class="fa fa-info-circle" aria-hidden="true"></i>
-                    <a href="#">Info</a>
+                    <a href="{% url 'view_bookings' %}">My Bookings</a>
                 </li>
                 {%if user.is_authenticated%}</li>
                 <li>User:{{user.get_username}}</li>
