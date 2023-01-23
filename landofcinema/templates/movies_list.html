@@ -6,9 +6,7 @@
     <thead>
       <tr>
         <th>Title</th>
-        <th>Synopsis</th>
         <th>Release Date</th>
-        <th>Image URL</th>
         <th>Rating</th>
         <th>Actions</th>
       </tr>
@@ -17,9 +15,7 @@
       {% for movie in movies %}
         <tr>
           <td>{{ movie.title }}</td>
-          <td>{{ movie.synopsis }}</td>
           <td>{{ movie.release_date }}</td>
-          <td>{{ movie.image_url }}</td>
           <td>{{ movie.rating }}</td>
           <td>
             <a href="{% url 'edit_movie' movie.id %}">Edit</a>

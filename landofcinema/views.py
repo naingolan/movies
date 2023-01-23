@@ -269,7 +269,7 @@ def edit_movie(request, movie_id):
         form = MovieForm(request.POST, request.FILES, instance=movie)
         if form.is_valid():
             form.save()
-            return redirect('index')
+            return redirect('edit_movie')
     else:
         form = MovieForm(instance=movie)
     return render(request, 'edit_movie.html', {'form': form, 'movie': movie})
@@ -279,6 +279,15 @@ def movies_list(request):
         return redirect('index')
     movies = Movie.objects.all()
     return render(request, 'movies_list.html', {'movies': movies})
+
+def delete_movie(request, movie_id):
+    if not request.user.groups.filter(name='Employee').exists():
+        return redirect('index')
+
+    movie = Movie.objects.get(pk=movie_id)
+    movie.delete()
+    return redirect('movies_list')
+
 
 #this is for displaying the movies 
 from django.shortcuts import render
