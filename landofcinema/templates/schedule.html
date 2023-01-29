@@ -2,16 +2,7 @@
 
 {% block content %}
 <h1>Movie Schedules</h1>
-<div class="trending">
-    {% for movie in movies|slice:":4" %}
-    <a href="#" class="movie">
-      <img  src="{{ movie.image_url }}" alt="{{ movie.title }}">
-      <h3>{{ movie.title }}</h3>
-    </a>
-    {% endfor %} 
-  </div>
-
-{% for theater in theaters %}
+{% for theater in theaters|slice:":4" %}
     <h2>{{ theater.name }}</h2>
     <div class="trending">
         {% for schedule in schedules %}
