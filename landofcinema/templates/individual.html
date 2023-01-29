@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+{% block content%}
+<div class="individual">
+    <img src="{{schedule.movie.image_url}}" alt="{{schedule.movie.title}}">
+    <div class="individual-details">
+        <h3 style="color:#3dd2cc">{{schedule.movie.title}}</h3>
+        <p style="font-size:14px; font-family:monospace">{{schedule.movie.synopsis}}</p>
+        <div class="individual-book" style="display:flex; flex-direction:row;margin-top:10px;padding-left:0 !important;padding:20px;">
+            <h5 style="display:block; margin: 0 10px;height:40px; border-radius:10px;align-items:center;padding-top:10px;justify-content:center; text-align:center;background-color:#191919;width:180px; color:#666666;">Screen {{schedule.screen.screen_number}}</h5>
+            <h5 style="display:block; margin: 0 10px; height:40px; border-radius:10px;align-items:center;padding-top:10px;justify-content:center; text-align:center;background-color:#191919;width:180px; color:#666666;">{{schedule.start_time}}</h5>
+            
+            <a href="{% url 'book_seat' schedule.id %}" style="display:block; height:40px; border-radius:10px;align-items:center;margin-left:180px;padding-top:10px;justify-content:center; text-align:center;background-color:#3dd2cc;width:250px; color:#191919;">Book</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

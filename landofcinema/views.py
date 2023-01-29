@@ -47,17 +47,32 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def book_seats(request, schedule_id):
     schedule = Schedule.objects.get(pk=schedule_id)
-    if request.method == 'POST':
-        form = BookingForm(request.POST)
-        if form.is_valid():
-            booking = form.save(commit=False)
-            booking.user = request.user
-            booking.schedule = schedule
-            booking.save()
-            return redirect('index')
+    if request.method == "POST":
+        seat_number = request.POST.get("seat_number")
+        new_booking = Booking.objects.create(
+            user=request.user,
+            movie=schedule.movie,
+            theater=schedule.screen.theater,
+            screen=schedule.screen,
+            seat_number=seat_number,
+            booking_date=datetime.now()
+        )
+        new_booking.save()
+        return redirect("index")
     else:
-        form = BookingForm()
-    return render(request, 'book_seats.html', {'form': form, 'schedule': schedule})
+        context = {
+            'schedule': schedule,
+        }
+        return render(request, 'book_seats.html', context)
+
+#Here i display a movie details so as a person can book
+def individual_schedule(request, schedule_id):
+    schedule = Schedule.objects.get(pk=schedule_id)
+    context = {
+        'schedule': schedule,
+    }
+    return render(request, 'individual.html', context)
+
 
 #creating a view for schedule
 from django.shortcuts import render, redirect

@@ -1,16 +1,10 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  
-  <form method="post" style="color=red; z-index=5" class="booking-form">
-    <h3 class="booking-header">Book Seats</h3>
-      {% csrf_token %}
-      {% for field in form %}
-          <div class="booking-div">
-              <label class="booking-label" for="{{ field.name }}">{{ field.label }}</label>
-              {{ field }}
-          </div>
-      {% endfor %}
-    <input class="booking-sumit" type="submit" value="Submit">
-  </form> 
+<form method="post" action="">
+  {% csrf_token %}
+  <label for="seat_number">Seat Number:</label>
+  <input type="text" id="seat_number" name="seat_number" required>
+  <input type="submit" value="Book">
+</form> 
 {% endblock %}

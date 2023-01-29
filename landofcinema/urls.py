@@ -14,6 +14,8 @@ urlpatterns += [
     path('book_seats/<int:schedule_id>/', views.book_seats, name='book_seat'),
     path('view_bookings/', views.view_bookings, name='view_bookings'),
     path('view_schedule/',views.schedule_view, name='view_schedule'),
+    path('schedule/<int:schedule_id>/', individual_schedule, name='individual_schedule'),
+
 
     
     # path('schedules/', ScheduleListView.as_view(), name='schedule_list'),
