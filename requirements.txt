@@ -1,21 +1,6 @@
 
 dj-database-url==1.2.0
 Django==4.1.5
-django-jinja==2.10.2
 gunicorn==20.1.0
-Jinja2==3.1.2
 psycopg2-binary==2.9.5
-python-apt==2.3.0+ubuntu2.1
-python-dateutil==2.8.1
-python-debian===0.1.43ubuntu1
-ubuntu-advantage-tools==27.12
-ubuntu-drivers-common==0.0.0
-ufw==0.36.1
-unattended-upgrades==0.1
-uritemplate==3.0.1
-urllib3==1.26.5
-usb-creator==0.3.7
-virtualenv==20.17.1
-virtualenv-clone==0.5.7
-virtualenvwrapper==4.8.4
 whitenoise==6.3.0
