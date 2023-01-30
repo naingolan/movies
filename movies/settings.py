@@ -160,3 +160,8 @@ CSRF_TRUSTED_ORIGINS = ['https://web-production-0ff8.up.railway.app/']
 
 # During development/for this tutorial you can instead set just the base URL
 # CSRF_TRUSTED_ORIGINS = ['https://*.railway.app']
+
+
+import os
+PORT = os.environ.get('PORT')
+
