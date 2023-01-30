@@ -282,7 +282,7 @@ a{
     display: flex;
     flex-direction: row;
   }
-  .booking-div>input, select{
+  .booking-div>input, select, form>p>input, form>p>textarea{
     position: relative;
     background-color: #191919;
     border-radius: 10px;
@@ -298,14 +298,14 @@ a{
     border-width: 0;
     padding-left:12%;
   }
-  .booking-label{
+  .booking-label, form>p>label{
     position: relative;
     padding-right:50px;
     width:40%;
     display:block;
     color: #E8E8E8 !important;
   }
-  .booking-submit, .form-submit{
+  .booking-submit, .form-submit, form>input[type="submit"]{
     position: relative;
     margin-left:20%;
     width:300px;

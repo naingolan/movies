@@ -268,7 +268,7 @@ def add_movie(request):
         form = MovieForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('index')
+            return redirect('employee_view')
     else:
         form = MovieForm()
     return render(request, 'add_movie.html', {'form': form})

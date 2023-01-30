@@ -1,31 +1,30 @@
 {% extends 'base_generic.html'%}
 {% block content%}
 <ul class="sidebar-1">
+    {% comment %} 
+    path('employee_view',views.employee_view, name='employee_view'),
+    path('add_schedule/', views.add_schedule, name='schedule'),
+    path('delete_shedule/<int:schedule_id>/', views.schedule_delete, name='delete_schedule'),
+    path('schedule_list', views.schedule_list, name='schedule_list_admin'),
+    path('edit_schedule/<int:schedule_id>/', views.schedule_edit, name='schedule_edit_admin'),
+    
+    path('add_movie/', views.add_movie, name='addmovies'),
+    path('edit_movie/<int:movie_id>/', views.edit_movie, name='edit_movie'),
+    path('delete_movie/<int:movie_id>/', views.delete_movie, name='delete_movie'),
+    path('movies_list', views.movies_list, name="movies_list"),
+     {% endcomment %}
     <li>
-        <i class="fa fa-home" aria-hidden="true"></i>
-        <a href="{% url 'index' %}">Add Movie</a>
+        <a href="{% url 'addmovies' %}">Add Movie</a>
     </li>
     <li>
-        <i class="fa fa-ticket" aria-hidden="true"></i>
-        <a href="{% url 'view_schedule'%}">Add Schedule</a>
+        <a href="{% url 'movies_list' %}">All Movies</a>
     </li>
     <li>
-        <i class="fa fa-info-circle" aria-hidden="true"></i>
-        <a href="{% url 'view_bookings' %}">Delete Movie</a>
+        <a href="{% url 'schedule'%}">Add Schedule</a>
     </li>
-    {%if user.is_authenticated%}</li>
-    <li>User:{{user.get_username}}</li>
-    {% if user.userprofile.is_employee %}
     <li>
-      <i class="fa fa-ticket" aria-hidden="true"></i>
-      <a href="{% url 'employee_view' %}">Employee View</a>
+        <a href="{% url 'schedule_list_admin' %}">All Schedules</a>
     </li>
-  {% endif %}
-    <li>
-        <a href="{% url 'logout' %}?next={{request.path }}">Logout</a></li>
-    {%else%}
-    <li><a href="{% url 'login' %}?next={{request.path}}">Login</a></li>
-    {% endif %}
 </ul>
 
 {% endblock %}
