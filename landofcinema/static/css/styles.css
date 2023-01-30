@@ -345,10 +345,17 @@ table>tbody>tr>td>{
 table>tr>td>a{
   color: #3DD2CC;
 }
-table{
-  font-size:12px;
+.tabling{
+  font-size:14px;
+  border:1px;
+  border-color:#3DD2CC;
 }
 .header-listing>tr>th{
-  text-align: left !important;
   padding-left:0 !important;
+}
+.header-listing{
+  background-color: #3DD2CC;
+  height:40px;
+  color:#191919;
+  padding-left:20px !important;
 }

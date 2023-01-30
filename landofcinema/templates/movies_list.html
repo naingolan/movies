@@ -2,8 +2,8 @@
 
 {% block content %}
   <h1>Movie List</h1>
-  <table>
-    <thead>
+  <table class="tabling">
+    <thead class="header-listing">
       <tr>
         <th>Title</th>
         <th>Release Date</th>
@@ -11,7 +11,7 @@
         <th>Actions</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="listing">
       {% for movie in movies %}
         <tr>
           <td>{{ movie.title }}</td>
