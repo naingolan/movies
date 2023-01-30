@@ -342,9 +342,13 @@ table>tbody>tr>td>{
   text-align: center;
   margin:4px;
 }
-.listing>tr>td>a{
+table>tr>td>a{
   color: #3DD2CC;
 }
 table{
   font-size:12px;
+}
+.header-listing>tr>th{
+  text-align: left !important;
+  padding-left:0 !important;
 }
