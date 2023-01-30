@@ -342,7 +342,7 @@ table>tbody>tr>td>{
   text-align: center;
   margin:4px;
 }
-table>tr>td>a{
+.tabling>tr>td>a{
   color: #3DD2CC;
 }
 .tabling{
