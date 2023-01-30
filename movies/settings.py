@@ -163,5 +163,17 @@ CSRF_TRUSTED_ORIGINS = ['https://web-production-0ff8.up.railway.app/']
 
 
 import os
-PORT = os.environ.get('PORT')
 
+# Get the port value from the environment variable
+port = int(os.environ.get('PORT', 8000))
+
+# Use the port value to set the listen address for the application
+# You can also use 0.0.0.0:port or 127.0.0.1:port to listen on the local host only
+os.environ['DJANGO_SETTINGS_MODULE'] = 'movies.settings'
+from django.core.wsgi import get_wsgi_application
+application = get_wsgi_application()
+
+# Start the application
+if __name__ == '__main__':
+    from django.core.management import execute_from_command_line
+    execute_from_command_line(['manage.py', 'runserver', '0.0.0.0:{}'.format(port)])
