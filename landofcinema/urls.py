@@ -26,6 +26,7 @@ urlpatterns += [
    
     
     #These are for  the employee
+    path('employee_view',views.employee_view, name='employee_view'),
     path('add_schedule/', views.add_schedule, name='schedule'),
     path('delete_shedule/<int:schedule_id>/', views.schedule_delete, name='delete_schedule'),
     path('schedule_list', views.schedule_list, name='schedule_list_admin'),
