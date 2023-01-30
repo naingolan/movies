@@ -36,6 +36,12 @@ class PaymentAdmin(admin.ModelAdmin):
     search_fields = ('booking__user__username', 'booking__movie__title')
     list_filter = ('payment_date', 'status')
 
+from django.contrib import admin
+from .models import UserProfile
+
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'is_employee')
 
 admin.site.register(Movie, MovieAdmin)
 admin.site.register(Theater, TheaterAdmin)

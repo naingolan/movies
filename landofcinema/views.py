@@ -358,3 +358,20 @@ def view_bookings(request):
         return render(request, 'view_bookings.html', {'bookings': bookings})
     else:
         return redirect('login')
+
+
+#the employee view 
+from django.shortcuts import render, redirect
+from .models import Movie, Schedule
+
+def employee_view(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    if not request.user.userprofile.is_employee:
+        return redirect('unauthorized')
+
+    movies = Movie.objects.all()
+    schedules = Schedule.objects.all()
+
+    return render(request, 'employee_view.html', {'movies': movies, 'schedules': schedules})
+

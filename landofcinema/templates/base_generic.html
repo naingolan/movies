@@ -27,6 +27,12 @@
                 </li>
                 {%if user.is_authenticated%}</li>
                 <li>User:{{user.get_username}}</li>
+                {% if user.userprofile.is_employee %}
+                <li>
+                  <i class="fa fa-ticket" aria-hidden="true"></i>
+                  <a href="{% url 'employee_view' %}">Employee View</a>
+                </li>
+              {% endif %}
                 <li>
                     <a href="{% url 'logout' %}?next={{request.path }}">Logout</a></li>
                 {%else%}
