@@ -1,10 +1,27 @@
-{% extends 'base_generic.html' %}
+{% extends 'another_generic.html'%}
 
 {% block content %}
+
   <h2>Register</h2>
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Register</button>
+    <div class="booking-div" style="margin-right:30px;">
+      <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+      {{ form.username }}
+    </div>
+    <div class="booking-div" style="margin-right:30px;">
+      <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+      {{ form.email }}
+    </div>
+    <div class="booking-div" style="margin-right:30px;">
+      <label for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
+      {{ form.password1 }}
+    </div>
+    <div class="booking-div" style="margin-right:30px;">
+      <label for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
+      {{ form.password2 }}
+    </div>
+    <input  style="margin-left:60%; background-color:#3dd2cc; width:200px;height:40px;boder:none;" class="form-submit" type="submit" class"booking-submit"value="login">
   </form>
+  <p><a href="{% url 'login' %}">Don' have an account? Login</a></p>
 {% endblock %}
