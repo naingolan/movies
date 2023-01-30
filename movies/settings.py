@@ -129,3 +129,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
